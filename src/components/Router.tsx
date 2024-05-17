@@ -7,6 +7,6 @@ export default function Router() {
     return <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/login' element={<LoginPage />} />
-        <Route path='/user/:id' element={<UserPage />} />
+creata        <Route path='/user' element={<UserPage />} />
     </Routes>
 }

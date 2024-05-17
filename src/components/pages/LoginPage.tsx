@@ -19,7 +19,7 @@ export default function LoginPage() {
           <input type="checkbox" id="remember-me" />
           <label htmlFor="remember-me">Remember me</label>
         </div>
-        <Link to="./user/:id"><button className="sign-in-button">Sign In</button></Link>
+        <Link to="/user"><button className="sign-in-button">Sign In</button></Link>
       </form>
     </section>
   </div>
