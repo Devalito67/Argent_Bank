@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../styles/EditUserName.css"
+import axios from "axios";
 
 interface EditUserNameProps {
     handleClick: () => void;
@@ -7,9 +8,10 @@ interface EditUserNameProps {
     lastName: string;
     setFirstName: React.Dispatch<React.SetStateAction<string>>;
     setLastName: React.Dispatch<React.SetStateAction<string>>;
+    token: string;
 }
 
-export default function EditUserName({ handleClick, firstName, setFirstName, lastName, setLastName }: EditUserNameProps) {
+export default function EditUserName({ handleClick, firstName, setFirstName, lastName, setLastName, token }: EditUserNameProps) {
 
     const [newFirstName, setNewFirstName] = useState("");
     const [newLastName, setNewLastName] = useState("");
@@ -21,6 +23,14 @@ export default function EditUserName({ handleClick, firstName, setFirstName, las
         } else {
             setFirstName(newFirstName);
             setLastName(newLastName);
+            axios.put('http://localhost:3001/api/v1/user/profile', {
+                    "firstName": newFirstName,
+                    "lastName": newLastName
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
             handleClick();
         }
     }

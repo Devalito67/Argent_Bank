@@ -10,12 +10,15 @@ export default function UserPage() {
   const [editName, setEditName] = useState(false);
   const [firstName, setFirstName] = useState("firstname");
   const [lastName, setLastName] = useState("lastname");
+  const [token, setToken] = useState("");
   const location = useLocation();
+  console.log(location.state);
 
   useEffect(() => {
-    if (location.state && location.state.profile && location.state.profile.body) {
+    if (location.state && location.state.profile && location.state.profile.body && location.state.token) {
       setFirstName(location.state.profile.body.firstName);
       setLastName(location.state.profile.body.lastName);
+      setToken(location.state.token)
     }
   }, [location.state]);
 
@@ -26,7 +29,7 @@ export default function UserPage() {
 
   // affichage
   return <div className="main-container bg-dark">
-    {editName ? <EditUserName handleClick={handleClick} firstName={firstName} lastName={lastName} setFirstName={setFirstName} setLastName={setLastName}/> :
+    {editName ? <EditUserName handleClick={handleClick} firstName={firstName} lastName={lastName} setFirstName={setFirstName} setLastName={setLastName} token={token}/> :
       <UserNameContainer handleClick={handleClick} firstName={firstName} lastName={lastName}/>}
     <h2 className="sr-only">Accounts</h2>
     <Account title="Argent Bank Checking (x8349)" amount="2,082.79" description="Available Balance" />

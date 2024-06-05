@@ -23,7 +23,7 @@ export default function LoginPage() {
         })
           .then(profileResponse => {
             console.log(profileResponse.data);
-            navigate('/profile', { state: { profile: profileResponse.data } });
+            navigate('/profile', { state: { profile: profileResponse.data, token: token} });
           })
           .catch(profileError => console.error('Error fetching profile:', profileError));
       })
