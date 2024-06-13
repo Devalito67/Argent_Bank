@@ -6,7 +6,6 @@
   }
   
   .main-nav a {
-    font-weight: bold;
     color: #2c3e50;
   }
   
@@ -31,4 +30,12 @@
   .main-nav-logo-image {
     max-width: 100%;
     width: 200px;
+  }
+
+  .main-nav-item button {
+    border: none;
+    background-color: white;
+    font-weight: bold;
+    color: #2c3e50;
+    font-size: 1rem;
   }
