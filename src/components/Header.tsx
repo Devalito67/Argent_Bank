@@ -1,14 +1,17 @@
 import { Link, useNavigate } from "react-router-dom"
 import "../styles/Header.css"
-import { useState } from "react"
-import SignOut from "./SignOut"
+import { setSignOut } from "../redux/signOutSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 export default function Header() {
-    const [signOut, setSignOut] = useState(false);
-    const navigate= useNavigate();
+    const { signOut} = useSelector((state: RootState) => state.SignOut);
+    const { firstName } = useSelector((state: RootState) => state.UserInfos);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSignOutClick = () => {
-        setSignOut(!signOut)
+        dispatch(setSignOut());
         navigate('/login', {});
     }
 
@@ -22,11 +25,18 @@ export default function Header() {
             <h1 className="sr-only">Argent Bank</h1>
         </Link>
         <div>
-           { signOut ? <SignOut handleSignOutClick={handleSignOutClick} /> :
-            <div className="main-nav-item" to="/login">
-                <i className="fa fa-user-circle"></i>
-                <button onClick={handleSignOutClick}>&nbsp;Sign In</button>
-            </div>}
+            {signOut ?
+                <Link className="main-nav-item" to="/login">
+                    <i className="fa fa-user-circle"></i>
+                    &nbsp;{firstName}
+                    <i className="fa fa-sign-out"></i>
+                    <button onClick={handleSignOutClick}>&nbsp;Sign Out</button>
+                </Link>
+                :
+                <Link className="main-nav-item" to="/login">
+                    <i className="fa fa-user-circle"></i>
+                    <button onClick={handleSignOutClick}>&nbsp;Sign In</button>
+                </Link>}
         </div>
     </nav>
 }

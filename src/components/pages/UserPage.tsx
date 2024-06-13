@@ -4,23 +4,27 @@ import EditUserName from "../EditUserName"
 import Account from "../Account"
 import { useLocation } from "react-router-dom"
 import UserNameContainer from "../UserNameContainer"
+import { useDispatch, useSelector } from "react-redux"
+import { setFirstName, setLastName } from "../../redux/userInfosSlice"
+import { setSignIn } from "../../redux/signOutSlice"
+import { RootState } from "../../redux/store"
 
 export default function UserPage() {
   // state
   const [editName, setEditName] = useState(false);
-  const [firstName, setFirstName] = useState("firstname");
-  const [lastName, setLastName] = useState("lastname");
-  const [token, setToken] = useState("");
+  const { token } = useSelector((state: RootState) => state.RememberMe)
   const location = useLocation();
+  const dispatch = useDispatch();
+
   console.log(location.state);
 
   useEffect(() => {
     if (location.state && location.state.profile && location.state.profile.body && location.state.token) {
-      setFirstName(location.state.profile.body.firstName);
-      setLastName(location.state.profile.body.lastName);
-      setToken(location.state.token)
+      dispatch(setFirstName(location.state.profile.body.firstName));
+      dispatch(setLastName(location.state.profile.body.lastName));
+      dispatch(setSignIn(true))
     }
-  }, [location.state]);
+  }, [location.state, dispatch]);
 
   // comportements
   const handleClick = () => {
@@ -29,8 +33,8 @@ export default function UserPage() {
 
   // affichage
   return <div className="main-container bg-dark">
-    {editName ? <EditUserName handleClick={handleClick} firstName={firstName} lastName={lastName} setFirstName={setFirstName} setLastName={setLastName} token={token}/> :
-      <UserNameContainer handleClick={handleClick} firstName={firstName} lastName={lastName}/>}
+    {editName ? <EditUserName handleClick={handleClick} token={token} /> :
+      <UserNameContainer handleClick={handleClick} />}
     <h2 className="sr-only">Accounts</h2>
     <Account title="Argent Bank Checking (x8349)" amount="2,082.79" description="Available Balance" />
     <Account title="Argent Bank Savings (x6712)" amount="10,928.42" description="Available Balance" />
