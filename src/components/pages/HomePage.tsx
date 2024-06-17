@@ -1,8 +1,13 @@
+import { useDispatch } from "react-redux"
+import { isSignIn } from "../../redux/signInSlice"
 import "../../styles/HomePage.css"
 import FeatureItem from "../FeatureItem"
 import Hero from "../Hero"
 
 export default function HomePage() {
+  const dispatch = useDispatch()
+dispatch(isSignIn(false))
+
   return (
     <div className="main-container">
       <Hero />

@@ -2,14 +2,14 @@ import { configureStore } from "@reduxjs/toolkit"
 import { rememberMeSlice } from "./rememberMeSlice"
 import { userInfosSlice } from "./userInfosSlice"
 import { loginSlice } from "./loginSlice"
-import { signOutSlice } from "./signOutSlice"
+import { signInSlice } from "./signInSlice"
 
 export const store = configureStore({
     reducer: {
         RememberMe : rememberMeSlice.reducer,
         UserInfos : userInfosSlice.reducer,
         Login : loginSlice.reducer,
-        SignOut : signOutSlice.reducer
+        SignIn : signInSlice.reducer
     }
 }
     

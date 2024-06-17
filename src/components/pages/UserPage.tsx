@@ -6,23 +6,22 @@ import { useLocation } from "react-router-dom"
 import UserNameContainer from "../UserNameContainer"
 import { useDispatch, useSelector } from "react-redux"
 import { setFirstName, setLastName } from "../../redux/userInfosSlice"
-import { setSignIn } from "../../redux/signOutSlice"
+import { isSignIn } from "../../redux/signInSlice"
 import { RootState } from "../../redux/store"
 
 export default function UserPage() {
   // state
   const [editName, setEditName] = useState(false);
-  const { token } = useSelector((state: RootState) => state.RememberMe)
+  const { token } = useSelector((state: RootState) => state.SignIn)
   const location = useLocation();
   const dispatch = useDispatch();
+  dispatch(isSignIn(true))
 
-  console.log(location.state);
 
   useEffect(() => {
     if (location.state && location.state.profile && location.state.profile.body && location.state.token) {
       dispatch(setFirstName(location.state.profile.body.firstName));
       dispatch(setLastName(location.state.profile.body.lastName));
-      dispatch(setSignIn(true))
     }
   }, [location.state, dispatch]);
 

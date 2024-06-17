@@ -3,19 +3,17 @@ import { createSlice } from "@reduxjs/toolkit";
 export const rememberMeSlice = createSlice({
     name: "RememberMe",
     initialState:{
-        checked: false,
-        token: ""
+        checked: localStorage.getItem("rememberMeIsChecked")=== "true" || false,
+    
     },
     reducers: {
-        isChecked : ( state, action) => {
-            state.checked = action.payload
-        },
-        setToken : ( state, action) => {
-            state.token = action.payload
+        setIsChecked : ( state, action) => {
+            state.checked = action.payload;
+            localStorage.setItem("rememberMeIsChecked", action.payload);
         }
     }
 })
 
-export const { isChecked, setToken } = rememberMeSlice.actions;
+export const { setIsChecked} = rememberMeSlice.actions;
 
 export default rememberMeSlice.reducer;
