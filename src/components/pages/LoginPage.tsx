@@ -17,6 +17,11 @@ export default function LoginPage() {
 
   dispatch(isSignIn(false))
 
+    const { token } = useSelector((state: RootState) => state.SignIn)
+
+    if ( token === "") {
+      navigate('/login')
+    }
 
   useEffect(() => {
 
